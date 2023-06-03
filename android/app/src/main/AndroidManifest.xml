@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mabolci_smarthome">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="mabolci_smarthome"
         android:name="${applicationName}"

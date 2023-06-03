@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: use_key_in_widget_constructors
 class MyHomePage extends StatelessWidget {
 
   final controller = WebViewController()
@@ -48,7 +49,7 @@ class MyHomePage extends StatelessWidget {
       },
     ),
   )
-  ..loadRequest(Uri.parse('https://macibol.ga/'));
+  ..loadRequest(Uri.parse('https://www.wikihow.com/Be-Funny'));
 
   @override
   Widget build(BuildContext context) {
