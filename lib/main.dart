@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: MyHomePage(),
     );
@@ -44,18 +44,20 @@ class MyHomePage extends StatelessWidget {
       onPageFinished: (String url) {},
       onWebResourceError: (WebResourceError error) {},
       onNavigationRequest: (NavigationRequest request) {
-        if (request.url.startsWith('https://www.youtube.com/')) {
-          return NavigationDecision.prevent;
-        }
         return NavigationDecision.navigate;
       },
     ),
   )
-  ..loadRequest(Uri.parse('https://jbzd.com.pl/'));
+  ..loadRequest(Uri.parse('https://macibol.ga/'));
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: WebViewWidget(controller: controller),);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('MABOLCI SMARTHOME'),
+      ),
+      body: Center(
+        child: WebViewWidget(controller: controller),),
+    );
   }
 }
