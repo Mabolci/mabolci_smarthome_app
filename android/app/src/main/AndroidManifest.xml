@@ -2,6 +2,7 @@
     package="com.example.mabolci_smarthome">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
+        android:usesCleartextTraffic="true"
         android:label="mabolci_smarthome"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

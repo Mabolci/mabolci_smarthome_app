@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,8 +24,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blueGrey,
-      ),
+        primarySwatch: Colors.lime,),
       home: MyHomePage(),
     );
   }
@@ -49,14 +49,19 @@ class MyHomePage extends StatelessWidget {
       },
     ),
   )
-  ..loadRequest(Uri.parse('https://www.wikihow.com/Be-Funny'));
+  ..loadRequest(Uri.parse('http://4.tcp.eu.ngrok.io:13326/'));
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('MABOLCI SMARTHOME'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('MABOLCI SMARTHOME'),
+      // ),
       body: Center(
         child: WebViewWidget(controller: controller),),
     );
