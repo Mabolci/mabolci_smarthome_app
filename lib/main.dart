@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +31,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Future<http.Response> fetchAddress() async {
+  final response = await http.get(Uri.parse('https://raw.githubusercontent.com/MasterCoookie/mabolci_smarthome_app/master/address.txt'));
+  return response;
+}
+
 // ignore: use_key_in_widget_constructors
 class MyHomePage extends StatelessWidget {
 
@@ -48,8 +54,7 @@ class MyHomePage extends StatelessWidget {
         return NavigationDecision.navigate;
       },
     ),
-  )
-  ..loadRequest(Uri.parse('http://4.tcp.eu.ngrok.io:13326/'));
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +64,22 @@ class MyHomePage extends StatelessWidget {
     ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('MABOLCI SMARTHOME'),
-      // ),
-      body: Center(
-        child: WebViewWidget(controller: controller),),
+      body: FutureBuilder(
+        future: fetchAddress(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData) {
+            final http.Response resp = snapshot.data as http.Response;
+            return Center(
+            child: WebViewWidget(controller: controller..loadRequest(Uri.parse(resp.body)))
+            );
+          }
+          else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }
