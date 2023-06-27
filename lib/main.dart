@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-);
+      );
     } else {
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
       return Scaffold(
