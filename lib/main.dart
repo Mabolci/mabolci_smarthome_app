@@ -37,8 +37,13 @@ Future<http.Response> fetchAddress() async {
 }
 
 // ignore: use_key_in_widget_constructors
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   final controller = WebViewController()
   ..setJavaScriptMode(JavaScriptMode.unrestricted)
   ..setBackgroundColor(const Color(0x00000000))
@@ -55,31 +60,48 @@ class MyHomePage extends StatelessWidget {
       },
     ),
   );
-
+  
+  final _formKey = GlobalKey<FormState>();
+  var hasAddress = false;
+  var address = '';
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-    return Scaffold(
-      body: FutureBuilder(
-        future: fetchAddress(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData) {
-            final http.Response resp = snapshot.data as http.Response;
-            return Center(
-            child: WebViewWidget(controller: controller..loadRequest(Uri.parse(resp.body)))
-            );
-          }
-          else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+    
+    
+    if(!hasAddress) {
+      return Form(
+        key: _formKey,
+        child:
+        Scaffold(
+          body: Center(
+            child: TextFormField(
+              decoration: const InputDecoration(
+          icon: Icon(Icons.settings),
+          hintText: 'Please input Dashticz address',
+          labelText: 'Address',
+        ),
+              onFieldSubmitted: (value) {
+                setState(() {
+                  hasAddress = true;
+                  address = value;
+                });
+              },
+            ),
+          ),
+        ),
+);
+    } else {
+      SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+      return Scaffold(
+            body: Center(
+            child: WebViewWidget(controller: controller..loadRequest(Uri.parse(address)))
+            ),
     );
+    }
+    
   }
 }
