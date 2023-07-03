@@ -9,5 +9,7 @@ After launch, the app will display a prompt asking for a link. After confirmatio
 
 Alaways put **http://** or **https://** in order to avod errors.
 
+Created to display Dashticz ui for smarthome application.
+
 ## compatibility
 The application requires android SDK >= 19. Also Java JDK 17 is required for compilation.
