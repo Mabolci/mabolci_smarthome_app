@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -29,11 +28,6 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
     );
   }
-}
-
-Future<http.Response> fetchAddress() async {
-  final response = await http.get(Uri.parse('https://raw.githubusercontent.com/MasterCoookie/mabolci_smarthome_app/master/address.txt'));
-  return response;
 }
 
 // ignore: use_key_in_widget_constructors
